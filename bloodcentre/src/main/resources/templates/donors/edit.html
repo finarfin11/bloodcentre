@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{_shared/head}"/>
+
+<body class="bg-gradient-primary">
+<div id="wrapper">
+    <th:block th:include="~{_shared/sidebar}"/>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content" class="bg-gradient-primary">
+            <div class="container-fluid">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                            <div class="col-lg-7">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-info mb-4">Edit Donor Record</h1>
+                                    </div>
+                                    <form class="user" th:object="${editModel}"
+                                          th:action="@{/donors/edit/{id}(id=${id})}" method="post">
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="fullName">Full Name</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="fullName"
+                                                   th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'"
+                                                   placeholder="Full Name" name="fullName"
+                                                   th:value="${donor.fullName}"/>
+                                            <small id="nameHelp" th:each="error : ${#fields.errors('fullName')}"
+                                                   th:text="${error}">Error Message
+                                            </small>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0 text-info" style="text-align: center">
+                                                <label for="age">Age</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       id="age"
+                                                       th:classappend="${#fields.hasErrors('age')} ? 'is-invalid'"
+                                                       placeholder="Age" name="age" th:value="${donor.age}"/>
+                                                <small th:each="error : ${#fields.errors('age')}" th:text="${error}">
+                                                    Error Message
+                                                </small>
+                                            </div>
+                                            <div class="col-sm-6 text-info" style="text-align: center">
+                                                <label for="sex">Sex</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       id="sex"
+                                                       th:classappend="${#fields.hasErrors('sex')} ? 'is-invalid'"
+                                                       placeholder="Sex" name="sex" th:value="${donor.sex}">
+                                                <small th:each="error : ${#fields.errors('sex')}" th:text="${error}">
+                                                    Error Message
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0 text-info " style="text-align: center">
+                                                <label for="idCardNumber">Id Card</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       placeholder="Id Card" id="idCardNumber"
+                                                       th:classappend="${#fields.hasErrors('idCardNumber')} ? 'is-invalid'"
+                                                       name="idCardNumber" th:value="${donor.idCardNumber}">
+                                                <small th:each="error : ${#fields.errors('idCardNumber')}"
+                                                       th:text="${error}">Error Message
+                                                </small>
+                                            </div>
+                                            <div class="col-sm-6 text-info" style="text-align: center">
+                                                <label for="ucn">UCN</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       placeholder="UCN" id="ucn"
+                                                       th:classappend="${#fields.hasErrors('ucn')} ? 'is-invalid'"
+                                                       name="ucn" th:value="${donor.ucn}">
+                                                <small th:each="error : ${#fields.errors('ucn')}" th:text="${error}">
+                                                    Error Message
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0 text-info" style="text-align: center">
+                                                <label for="phone">Phone Number</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       placeholder="Phone Number" id="phone"
+                                                       th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid'"
+                                                       name="phoneNumber" th:value="${donor.phoneNumber}">
+                                                <small th:each="error : ${#fields.errors('phoneNumber')}"
+                                                       th:text="${error}">Error Message
+                                                </small>
+                                            </div>
+                                            <div class="col-sm-6 text-info" style="text-align: center">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control form-control-user text-muted"
+                                                       th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                                                       id="email" placeholder="Email"
+                                                       name="email" th:value="${donor.email}">
+                                                <small th:each="error : ${#fields.errors('email')}" th:text="${error}">
+                                                    Error Message
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="gpName">Gp Name</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="gpName"
+                                                   th:classappend="${#fields.hasErrors('gpName')} ? 'is-invalid'"
+                                                   placeholder="Gp Name" name="gpName" th:value="${donor.gpName}">
+                                            <small th:each="error : ${#fields.errors('gpName')}" th:text="${error}">
+                                                Error Message
+                                            </small>
+                                        </div>
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="address">Current Address</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="address"
+                                                   th:classappend="${#fields.hasErrors('currentAddress')} ? 'is-invalid'"
+                                                   placeholder="Current Address" name="currentAddress"
+                                                   th:value="${donor.currentAddress}">
+                                            <small th:each="error : ${#fields.errors('currentAddress')}"
+                                                   th:text="${error}">Error Message
+                                            </small>
+                                        </div>
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="notes">Notes</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="notes"
+                                                   th:classappend="${#fields.hasErrors('notes')} ? 'is-invalid'"
+                                                   placeholder="Notes" name="notes" th:value="${donor.notes}">
+                                            <small th:each="error : ${#fields.errors('notes')}" th:text="${error}">Error
+                                                Message
+                                            </small>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Edit Donor record
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

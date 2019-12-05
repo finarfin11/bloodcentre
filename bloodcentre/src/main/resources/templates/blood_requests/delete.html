@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{_shared/head}"/>
+
+<body class="bg-gradient-primary">
+<div id="wrapper">
+    <th:block th:include="~{_shared/sidebar}"/>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content" class="bg-gradient-primary">
+            <div class="container-fluid">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                            <div class="col-lg-7">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-info mb-4">Delete Blood Request</h1>
+                                    </div>
+                                    <form class="user" th:action="@{/requests/delete/{id}(id=${request.id})}"
+                                          method="post">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Hospital</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="hospitalName"
+                                                       placeholder="Hospital" name="hospital"
+                                                       th:value="${request.hospital.name}" th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Patient Id</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user" id="patientId"
+                                                       placeholder="Patient Id" name="patientId"
+                                                       th:value="${request.patientId}" th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Patient Name</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="patientName"
+                                                       placeholder="Patient Name" name="patientFullName"
+                                                       th:value="${request.patientFullName}" th:disabled="true"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Blood Product Type</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="bloodProductType"
+                                                       placeholder="Blood Product Type" name="bloodProductType"
+                                                       th:value="${request.bloodProductType.displayValue}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Product Amount</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user" id="amount"
+                                                       placeholder="Amount od Blood Product" name="amount"
+                                                       th:value="${request.amount}" th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Request State</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="requestState"
+                                                       placeholder="Request State" name="requestState"
+                                                       th:value="${request.requestState.displayValue}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Date Of Request</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="dateOfRequest"
+                                                       placeholder="Date of Request" name="dateOfRequest"
+                                                       th:value="${#dates.format(request.dateOfRequest, 'yyyy-MM-dd')}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Delete Blood Request
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

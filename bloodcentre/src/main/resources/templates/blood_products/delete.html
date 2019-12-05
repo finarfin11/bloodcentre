@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{_shared/head}"/>
+
+<body class="bg-gradient-primary">
+<div id="wrapper">
+    <th:block th:include="~{_shared/sidebar}"/>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content" class="bg-gradient-primary">
+            <div class="container-fluid">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                            <div class="col-lg-7">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-info mb-4">Delete Blood Product Record</h1>
+                                    </div>
+                                    <form class="user" th:action="@{/products/delete/{id}(id=${product.id})}"
+                                          method="post">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Blood Product Type</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user" id="type"
+                                                       placeholder="" name="type"
+                                                       th:value="${product.type.displayValue}" th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Blood Product Availability</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="productAvailability"
+                                                       placeholder="" name="dproductAvailability"
+                                                       th:value="${product.productAvailability.displayValue}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Blood Product Amount</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="productAmount"
+                                                       placeholder="Product Amount" name="amount"
+                                                       th:value="${product.amount}" th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="memberNameLabel">Blood Donation Date</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control form-control-user"
+                                                       id="dateOfDonation"
+                                                       placeholder="Date of donation" name="dateOfDonation"
+                                                       th:value="${#dates.format(product.dateOfDonation, 'yyyy-MM-dd')}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Delete Blood Product
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

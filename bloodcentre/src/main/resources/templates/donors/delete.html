@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{_shared/head}"/>
+
+<body class="bg-gradient-primary">
+<div id="wrapper">
+    <th:block th:include="~{_shared/sidebar}"/>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content" class="bg-gradient-primary">
+            <div class="container-fluid">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                            <div class="col-lg-7">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-info mb-4">Delete Donor From Database</h1>
+                                    </div>
+                                    <form class="user" th:action="@{/donors/delete/{id}(id=${donor.id})}" method="post">
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="fullName">Full Name</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="fullName"
+                                                   placeholder="Full Name" name="fullName" th:value="${donor.fullName}"
+                                                   th:disabled="true"/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0 text-info" style="text-align: center">
+                                                <label for="age">Age</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       id="age"
+                                                       placeholder="Age" name="age" th:value="${donor.age}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                            <div class="col-sm-6 text-info" style="text-align: center">
+                                                <label for="sex">Sex</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       id="sex"
+                                                       placeholder="Sex" name="sex" th:value="${donor.sex}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0 text-info " style="text-align: center">
+                                                <label for="idCardNumber">Id Card</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       placeholder="Id Card" id="idCardNumber"
+                                                       name="idCardNumber" th:value="${donor.idCardNumber}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                            <div class="col-sm-6 text-info" style="text-align: center">
+                                                <label for="ucn">UCN</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       placeholder="UCN" id="ucn"
+                                                       name="ucn" th:value="${donor.ucn}" th:disabled="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0 text-info" style="text-align: center">
+                                                <label for="phone">Phone Number</label>
+                                                <input type="text" class="form-control form-control-user text-muted"
+                                                       placeholder="Phone Number" id="phone"
+                                                       name="phoneNumber" th:value="${donor.phoneNumber}"
+                                                       th:disabled="true"/>
+                                            </div>
+                                            <div class="col-sm-6 text-info" style="text-align: center">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control form-control-user text-muted"
+                                                       id="email" placeholder="Email"
+                                                       name="email" th:value="${donor.email}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="gpName">Gp Name</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="gpName"
+                                                   placeholder="Gp Name" name="gpName" th:value="${donor.gpName}"
+                                                   th:disabled="true"/>
+                                        </div>
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="address">Current Address</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="address"
+                                                   placeholder="Current Address" name="currentAddress"
+                                                   th:value="${donor.currentAddress}" th:disabled="true">
+                                        </div>
+                                        <div class="form-group text-info" style="text-align: center">
+                                            <label for="notes">Notes</label>
+                                            <input type="text" class="form-control form-control-user text-muted"
+                                                   id="notes"
+                                                   placeholder="Notes" name="notes" th:value="${donor.notes}"
+                                                   th:disabled="true"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Delete Donor From Database
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
