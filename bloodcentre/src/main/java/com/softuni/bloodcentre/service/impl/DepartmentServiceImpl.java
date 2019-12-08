@@ -8,6 +8,7 @@ import com.softuni.bloodcentre.service.services.DepartmentService;
 import com.softuni.bloodcentre.web.models.EditDepartmentModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
@@ -27,6 +28,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department addDepartment(RegisterDepartmentServiceModel model) {
+        if (this.departmentRepository.findByName(model.getName()).isPresent()) {
+            throw new DuplicateKeyException("Department with the given name already exists!");
+        }
+
         return this.departmentRepository.save(this.modelMapper.map(model, Department.class));
     }
 
@@ -39,7 +44,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findByName(String departmentName) {
-        return departmentRepository.findByName(departmentName);
+        return departmentRepository.findByName(departmentName).orElseThrow(() -> new NoResultException("Department with the given name was not found!"));
     }
 
     @Override
