@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.NoResultException;
 
@@ -39,6 +40,9 @@ public class UserServiceTests extends TestBase {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     UserService userService;
@@ -92,6 +96,7 @@ public class UserServiceTests extends TestBase {
         registerModel = new RegisterUserModel();
         registerModel.setUsername("uname");
         registerModel.setDepartmentName("departmentName");
+        registerModel.setPassword(bCryptPasswordEncoder.encode("pass"));
         userService.addUser(registerModel);
         ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
         Mockito.verify(userRepository).save(argumentCaptor.capture());

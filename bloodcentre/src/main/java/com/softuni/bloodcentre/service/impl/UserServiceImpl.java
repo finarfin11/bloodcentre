@@ -12,6 +12,7 @@ import com.softuni.bloodcentre.web.models.RegisterUserModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
@@ -25,12 +26,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final DepartmentService departmentService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, DepartmentService departmentService) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, DepartmentService departmentService, BCryptPasswordEncoder bCryptPasswordEncoder, BCryptPasswordEncoder bCryptPasswordEncoder1) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.departmentService = departmentService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder1;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class UserServiceImpl implements UserService {
         registerUserServiceModel.setDepartments(new ArrayList<>());
         Department department = this.departmentService.findByName(registerUserModel.getDepartmentName());
         registerUserServiceModel.getDepartments().add(department);
+        registerUserServiceModel.setPassword(bCryptPasswordEncoder.encode(registerUserModel.getPassword()));
         return this.userRepository.save(this.modelMapper.map(registerUserServiceModel, User.class));
     }
 
@@ -67,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
         user.setFirstName(editUserModel.getFirstName());
         user.setLastName(editUserModel.getLastName());
-        user.setPassword(editUserModel.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(editUserModel.getPassword()));
         user.getDepartments().clear();
         user.getDepartments().add(department);
         user.setPhoneNumber(editUserModel.getPhoneNumber());
