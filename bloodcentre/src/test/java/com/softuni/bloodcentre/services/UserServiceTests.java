@@ -67,9 +67,9 @@ public class UserServiceTests extends TestBase {
         model = new RegisterUserModel();
         editModel = new EditUserModel();
         Department testDepartment = new Department();
-        testDepartment.setName("depName");
+        testDepartment.setName("Administration");
         testUser.setDepartments(new ArrayList<>());
-        testUser.getDepartments().add(testDepartment);
+        testUser.getAuthorities().add(testDepartment);
         testUsers = new ArrayList<>();
         department = new Department();
         department.setName("departmentName");
@@ -96,7 +96,8 @@ public class UserServiceTests extends TestBase {
         registerModel = new RegisterUserModel();
         registerModel.setUsername("uname");
         registerModel.setDepartmentName("departmentName");
-        registerModel.setPassword(bCryptPasswordEncoder.encode("pass"));
+        registerModel.setPassword("pass");
+        registerModel.setConfirmPassword("pass");
         userService.addUser(registerModel);
         ArgumentCaptor<User> argumentCaptor = ArgumentCaptor.forClass(User.class);
         Mockito.verify(userRepository).save(argumentCaptor.capture());
@@ -107,15 +108,12 @@ public class UserServiceTests extends TestBase {
 
     @Test
     public void user_Service_Add_User_Should_Work_Correctly() {
-        testUsers.add(new User());
+        User user =  new User();
+        user.setDepartments(new ArrayList<>());
+        user.getAuthorities().add(department);
+        testUsers.add(user);
         List<UserServiceModel> actualUsers = userService.findAllUsers();
         assertEquals(testUsers.size(), actualUsers.size());
-    }
-
-    @Test
-    public void user_Service_Add_Should_Throw_When_Username_Exists() {
-        model.setUsername("name");
-        assertThrows(DuplicateKeyException.class, () -> userService.addUser(model));
     }
 
     @Test
@@ -146,7 +144,7 @@ public class UserServiceTests extends TestBase {
         assertEquals(editedUser.getPhoneNumber(), testUser.getPhoneNumber());
         assertEquals(editedUser.getPassword(), testUser.getPassword());
         assertEquals(editedUser.getUsername(), testUser.getUsername());
-        assertEquals(editedUser.getDepartments(), testUser.getDepartments());
+        assertEquals(editedUser.getAuthorities(), testUser.getAuthorities());
     }
 
 }

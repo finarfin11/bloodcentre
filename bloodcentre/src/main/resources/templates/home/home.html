@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{_shared/head}"/>
+
+<body class="bg-gradient-primary">
+<div id="wrapper">
+    <th:block th:include="~{_shared/sidebar}"/>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content" class="bg-primary">
+            <th:block th:include="~{_shared/navbar}"/>
+
+            <h1 style="text-align: center; margin-top:25px; color: white">ENJOY YOUR WORK - SAVE LIFE</h1>
+
+        </div>
+    <th:block th:include="~{_shared/footer}"/>
+    </div>
+</div>
+
+</body>
+
+</html>
+

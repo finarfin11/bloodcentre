@@ -1,18 +1,20 @@
 package com.softuni.bloodcentre.web.controllers;
 
+import com.softuni.bloodcentre.data.models.Sex;
 import com.softuni.bloodcentre.service.services.DonorService;
+import com.softuni.bloodcentre.service.services.GenderService;
+import com.softuni.bloodcentre.web.Anntotations.PageTitle;
 import com.softuni.bloodcentre.web.models.DeleteDonorModel;
 import com.softuni.bloodcentre.web.models.EditDonorModel;
 import com.softuni.bloodcentre.web.models.RegisterDonorModel;
 import com.softuni.bloodcentre.web.models.ViewDonorModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,20 +26,27 @@ import java.util.List;
 public class DonorController {
     private final DonorService donorService;
     private final ModelMapper modelMapper;
+    private final GenderService genderService;
 
     @Autowired
-    public DonorController(DonorService donorService, ModelMapper modelMapper) {
+    public DonorController(DonorService donorService, ModelMapper modelMapper, GenderService genderService) {
         this.donorService = donorService;
         this.modelMapper = modelMapper;
+        this.genderService = genderService;
     }
 
     @GetMapping("/register")
+    @PageTitle("Register Donor")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration')")
     public ModelAndView getRegisterForm(@ModelAttribute("registerModel") RegisterDonorModel model, ModelAndView modelAndView) {
+        List<Sex> sexList = this.genderService.getSexList();
+        modelAndView.addObject(sexList);
         modelAndView.setViewName("donors/register.html");
         return modelAndView;
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration')")
     public String register(@Valid @ModelAttribute("registerModel") RegisterDonorModel registerDonorModel, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return "donors/register.html";
@@ -48,6 +57,8 @@ public class DonorController {
     }
 
     @GetMapping("/table")
+    @PageTitle("Registered Donors")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration')")
     public ModelAndView getDonorsTable(ModelAndView modelAndView) {
         List<ViewDonorModel> viewDonorModels = this.donorService.findAllDonors();
         modelAndView.addObject("donors", viewDonorModels);
@@ -56,9 +67,13 @@ public class DonorController {
     }
 
     @GetMapping("/edit/{id}")
+    @PageTitle("Edit Donor")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration')")
     public ModelAndView getEditForm(@ModelAttribute("editModel") EditDonorModel model, ModelAndView modelAndView, @PathVariable("id") long id) {
         EditDonorModel editDonorModel = this.modelMapper
                 .map(this.donorService.findById(id), EditDonorModel.class);
+        List<Sex> sexList = this.genderService.getSexList();
+        modelAndView.addObject(sexList);
         modelAndView.setViewName("donors/edit.html");
         modelAndView.addObject("id", id);
         modelAndView.addObject("donor", editDonorModel);
@@ -66,6 +81,7 @@ public class DonorController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration')")
     public ModelAndView edit(@Valid @ModelAttribute("editModel") EditDonorModel model, BindingResult bindingResult, @PathVariable("id") long id) {
         ModelAndView mav;
         if(bindingResult.hasErrors()) {
@@ -81,6 +97,8 @@ public class DonorController {
     }
 
     @GetMapping("/delete/{id}")
+    @PageTitle("Delete Donor")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration')")
     public ModelAndView getDeleteForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         DeleteDonorModel deleteDonorModel = this.modelMapper
                 .map(this.donorService.findById(id),DeleteDonorModel.class);
@@ -90,6 +108,7 @@ public class DonorController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration')")
     public String delete(@PathVariable("id") long id) {
         this.donorService.deleteDonor(id);
         return "redirect:/donors/table";

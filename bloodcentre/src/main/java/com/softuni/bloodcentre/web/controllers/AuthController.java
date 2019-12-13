@@ -2,6 +2,7 @@ package com.softuni.bloodcentre.web.controllers;
 
 import com.softuni.bloodcentre.service.models.LoginUserServiceModel;
 import com.softuni.bloodcentre.service.services.AuthService;
+import com.softuni.bloodcentre.web.Anntotations.PageTitle;
 import com.softuni.bloodcentre.web.models.LoginUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,16 +26,17 @@ public class AuthController {
     }
 
     @GetMapping("/")
+    @PageTitle("Login")
     public String getLoginForm() {
         return "auth/login.html";
     }
 
-    @PostMapping("/")
-    public String login(@ModelAttribute LoginUserModel model, HttpSession session) {
-            LoginUserServiceModel serviceModel = this.authService.login(model);
-            session.setAttribute("user", serviceModel);
-            return "redirect:/users/table";
-    }
+//    @PostMapping("/")
+//    public String login(@ModelAttribute LoginUserModel model, HttpSession session) {
+//            LoginUserServiceModel serviceModel = this.authService.login(model);
+//            session.setAttribute("user", serviceModel);
+//            return "redirect:/users/table";
+//    }
 
     @ExceptionHandler(NoResultException.class)
     public ModelAndView defaultErrorHandler(NoResultException exception, HttpServletRequest request) {

@@ -3,6 +3,7 @@ package com.softuni.bloodcentre.services;
 import com.softuni.bloodcentre.base.TestBase;
 import com.softuni.bloodcentre.data.models.User;
 import com.softuni.bloodcentre.data.repositories.UserRepository;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.softuni.bloodcentre.service.models.LoginUserServiceModel;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class AuthServiceTests extends TestBase {
     private User testUser;
@@ -27,12 +29,15 @@ public class AuthServiceTests extends TestBase {
     @Autowired
     AuthService authService;
 
+    @MockBean
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @BeforeEach
     public void init() {
         testUser = new User();
         testUser.setUsername("username");
         testUser.setPassword("password");
-        Mockito.when(userRepository.findByUsernameAndPassword(testUser.getUsername(), testUser.getPassword())).thenReturn(java.util.Optional.ofNullable(testUser));
+        Mockito.when(userRepository.findByUsernameAndPassword(testUser.getUsername(), bCryptPasswordEncoder.encode(testUser.getPassword()))).thenReturn(java.util.Optional.ofNullable(testUser));
 
     }
 

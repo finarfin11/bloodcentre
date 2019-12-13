@@ -10,13 +10,14 @@
     <th:block th:include="~{_shared/sidebar}"/>
 
     <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content" class="bg-gradient-primary">
+        <div id="content" class="bg-primary">
+
+            <th:block th:include="~{_shared/navbar}"/>
+
             <div class="container-fluid">
 
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                             <div class="col-lg-7">
@@ -45,13 +46,11 @@
                                                 </small>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control form-control-user"
-                                                       id="exampleLastName"
-                                                       th:classappend="${#fields.hasErrors('sex')} ? 'is-invalid'"
-                                                       placeholder="Sex" name="sex" th:field="*{sex}">
-                                                <small th:each="error : ${#fields.errors('sex')}" th:text="${error}">
-                                                    Error Message
-                                                </small>
+                                                <select class="custom-select" name="sex">
+                                                    <option th:each="sex : ${sexList}"
+                                                            th:value="${sex}"
+                                                            th:text="${sex}"/>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -124,19 +123,9 @@
                 </div>
             </div>
         </div>
-
+        <th:block th:include="~{_shared/footer}"/>
     </div>
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="/js/sb-admin-2.min.js"></script>
 
 </body>
 

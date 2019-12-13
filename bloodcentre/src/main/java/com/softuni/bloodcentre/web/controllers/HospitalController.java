@@ -1,9 +1,11 @@
 package com.softuni.bloodcentre.web.controllers;
 
 import com.softuni.bloodcentre.service.services.HospitalService;
+import com.softuni.bloodcentre.web.Anntotations.PageTitle;
 import com.softuni.bloodcentre.web.models.EditHospitalModel;
 import com.softuni.bloodcentre.web.models.RegisterHospitalModel;
 import com.softuni.bloodcentre.web.models.ViewHospitalModel;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +27,14 @@ public class HospitalController {
     }
 
     @GetMapping("/register")
+    @PageTitle("Register Hospital")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String getRegisterForm(@ModelAttribute("registerModel") RegisterHospitalModel registerHospitalModel) {
         return "hospitals/register.html";
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String register(@Valid @ModelAttribute("registerModel") RegisterHospitalModel registerHospitalModel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "hospitals/register.html";
@@ -40,6 +45,8 @@ public class HospitalController {
     }
 
     @GetMapping("/table")
+    @PageTitle("Hospitals")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getBloodProductsTable(ModelAndView modelAndView) {
         List<ViewHospitalModel> viewHospitalModelList = this.hospitalService.findAllHospitals();
         modelAndView.setViewName("hospitals/table.html");
@@ -48,6 +55,8 @@ public class HospitalController {
     }
 
     @GetMapping("/edit/{id}")
+    @PageTitle("Edit Hospital")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getEditForm(@ModelAttribute("editModel") EditHospitalModel model, ModelAndView modelAndView, @PathVariable("id") long id) {
         EditHospitalModel editHospitalModel = this.hospitalService.getEditHospitalModel(id);
         modelAndView.addObject("hospital", editHospitalModel);
@@ -56,6 +65,7 @@ public class HospitalController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView edit(@Valid @ModelAttribute("editModel") EditHospitalModel model, BindingResult bindingResult, @PathVariable("id") long id){
         ModelAndView mav;
         if(bindingResult.hasErrors()) {
@@ -71,6 +81,8 @@ public class HospitalController {
     }
 
     @GetMapping("/delete/{id}")
+    @PageTitle("Delete Hospital")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getDeleteForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         EditHospitalModel editHospitalModel = this.hospitalService.getEditHospitalModel(id);
         modelAndView.addObject("hospital", editHospitalModel);
@@ -79,6 +91,7 @@ public class HospitalController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String delete(@PathVariable("id") long id){
         this.hospitalService.deleteHospital(id);
         return "redirect:/hospitals/table";

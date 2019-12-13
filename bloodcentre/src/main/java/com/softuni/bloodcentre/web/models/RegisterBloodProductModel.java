@@ -1,7 +1,6 @@
 package com.softuni.bloodcentre.web.models;
 
-import com.softuni.bloodcentre.data.models.BloodProductType;
-import com.softuni.bloodcentre.validation.ValidationConstants;
+import com.softuni.bloodcentre.web.validation.ValidationConstants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

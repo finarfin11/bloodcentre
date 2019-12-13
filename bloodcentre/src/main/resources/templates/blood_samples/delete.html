@@ -10,13 +10,14 @@
     <th:block th:include="~{_shared/sidebar}"/>
 
     <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content" class="bg-gradient-primary">
+        <div id="content" class="bg-primary">
+
+            <th:block th:include="~{_shared/navbar}"/>
+
             <div class="container-fluid">
 
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                             <div class="col-lg-7">
@@ -27,7 +28,7 @@
                                     <form class="user" th:action="@{/bloodSamples/delete/{id}(id=${id})}" method="post">
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label class="memberNameLabel">Select Blood Type</label>
+                                                <label class="memberNameLabel text-info">Select Blood Type</label>
                                             </div>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control form-control-user" id="bloodType"
@@ -37,7 +38,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label class="memberNameLabel">Choose Blood Sample Status</label>
+                                                <label class="memberNameLabel text-info">Choose Blood Sample Status</label>
                                             </div>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control form-control-user"
@@ -46,7 +47,8 @@
                                                        th:value="${bloodSample.bloodSampleStatus}" th:disabled="true"/>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group text-info">
+                                            <label for="notes">Additional Notes</label>
                                             <input type="text" class="form-control form-control-user" id="notes"
                                                    placeholder="Notes" name="notes" th:value="${bloodSample.notes}"
                                                    th:disabled="true"/>
@@ -62,19 +64,9 @@
                 </div>
             </div>
         </div>
+        <th:block th:include="~{_shared/footer}"/>
     </div>
-
 </div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="/js/sb-admin-2.min.js"></script>
 
 </body>
 

@@ -1,0 +1,14 @@
+<th:block th:fragment xmlns:th="http://www.w3.org/1999/xhtml">
+    <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item dropdown no-arrow text-white">
+                <form action="/logout?login" method="post">
+                    <input type="hidden" name="_csrf" value="98464398-go84-dfg6-77ji-3hk349902424">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </form>
+            </li>
+
+        </ul>
+    </nav>
+</th:block>

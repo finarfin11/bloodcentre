@@ -38,13 +38,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserServiceModel> findAllUsers() {
-        return this.userRepository.findAll().stream()
-                .map(user -> this.modelMapper.map(user, UserServiceModel.class)).collect(Collectors.toList());
+        List<User> users = this.userRepository.findAll();
+        List<UserServiceModel> serviceModels = users.stream().map(user -> this.modelMapper.map(user, UserServiceModel.class)).collect(Collectors.toList());
+        serviceModels.forEach(m -> m.setDepartments(new ArrayList<>()));
+        for (int i = 0; i < users.size(); i++) {
+            for (int j = 0; j < users.get(i).getAuthorities().size(); j++) {
+                serviceModels.get(i).getDepartments().add(users.get(i).getAuthorities().get(j));
+            }
+        }
+
+        return serviceModels;
     }
 
     @Override
     @Transactional
     public User addUser(RegisterUserModel registerUserModel) {
+        if (!registerUserModel.getPassword().equals(registerUserModel.getConfirmPassword())) {
+            throw new IllegalArgumentException("Confirm password does not match!");
+        }
+
         RegisterUserServiceModel registerUserServiceModel = this.modelMapper.map(registerUserModel, RegisterUserServiceModel.class);
         if (this.userRepository.findByUsername(registerUserServiceModel.getUsername()).isPresent()) {
             throw new DuplicateKeyException("User with the given username already exists!");
@@ -72,12 +84,15 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(editUserModel.getFirstName());
         user.setLastName(editUserModel.getLastName());
         user.setPassword(bCryptPasswordEncoder.encode(editUserModel.getPassword()));
-        user.getDepartments().clear();
-        user.getDepartments().add(department);
+        List<Department> currentDepartments = user.getAuthorities();
+        if (!currentDepartments.contains(department)) {
+            currentDepartments.add(department);
+        }
+        user.setDepartments(user.getAuthorities().stream().filter(d -> !currentDepartments.contains(d)).collect(Collectors.toList()));
+        user.getAuthorities().addAll(currentDepartments);
         user.setPhoneNumber(editUserModel.getPhoneNumber());
         user.setUsername(editUserModel.getUsername());
         user.setPosition(editUserModel.getPosition());
-
         return this.userRepository.save(user);
     }
 

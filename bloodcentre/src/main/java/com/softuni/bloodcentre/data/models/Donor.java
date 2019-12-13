@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -21,8 +18,8 @@ public class Donor extends BaseEntity {
     private String fullName;
     @Column(nullable = false)
     private int age;
-    @Column(nullable = false)
-    private String sex;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
     @Column(nullable = false, unique = true)
     private String ucn;
     @Column(nullable = false, unique = true)

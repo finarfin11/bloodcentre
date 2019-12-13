@@ -2,6 +2,7 @@ package com.softuni.bloodcentre.services;
 
 import com.softuni.bloodcentre.base.TestBase;
 import com.softuni.bloodcentre.data.models.Donor;
+import com.softuni.bloodcentre.data.models.Sex;
 import com.softuni.bloodcentre.data.repositories.DonorRepository;
 import com.softuni.bloodcentre.service.services.DonorService;
 import com.softuni.bloodcentre.web.models.EditDonorModel;
@@ -69,7 +70,7 @@ public class DonorServiceTests extends TestBase {
         registerModel.setGpName("gp");
         registerModel.setIdCardNumber("idCard");
         registerModel.setUcn("ucn");
-        registerModel.setSex("Male");
+        registerModel.setSex(Sex.MALE);
         donorService.addDonor(registerModel);
         ArgumentCaptor<Donor> argumentCaptor = ArgumentCaptor.forClass(Donor.class);
         Mockito.verify(donorRepository).save(argumentCaptor.capture());
@@ -113,7 +114,7 @@ public class DonorServiceTests extends TestBase {
         editModel.setAge(20);
         editModel.setPhoneNumber("newNumber");
         editModel.setCurrentAddress("newAddress");
-        editModel.setSex("Female");
+        editModel.setSex(Sex.FEMALE);
         editModel.setEmail("newEmail");
         editModel.setIdCardNumber("newId");
         editModel.setUcn("newUcn");

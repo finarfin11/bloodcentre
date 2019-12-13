@@ -1,6 +1,6 @@
 package com.softuni.bloodcentre.web.models;
 
-import com.softuni.bloodcentre.validation.ValidationConstants;
+import com.softuni.bloodcentre.web.validation.ValidationConstants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class RegisterDonationModel {
-    @Size(min = 1, max = 40, message = ValidationConstants.FIELD_LENGTH)
+    @Size(min = 1, max = 40, message = ValidationConstants.COMMON_FIELD_LENGTH)
     private String donorName;
     @NotNull(message = ValidationConstants.FIELD_CANNOT_BE_EMPTY)
     @DecimalMin(value = "300.0", message = ValidationConstants.AMOUNT_MUST_BE_IN_RANGE)

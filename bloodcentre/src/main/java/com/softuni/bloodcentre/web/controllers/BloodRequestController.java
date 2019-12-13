@@ -3,7 +3,9 @@ package com.softuni.bloodcentre.web.controllers;
 import com.softuni.bloodcentre.service.services.BloodProductTypeService;
 import com.softuni.bloodcentre.service.services.BloodRequestService;
 import com.softuni.bloodcentre.service.services.RequestStateService;
+import com.softuni.bloodcentre.web.Anntotations.PageTitle;
 import com.softuni.bloodcentre.web.models.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,8 @@ public class BloodRequestController {
     }
 
     @GetMapping("/register")
+    @PageTitle("Register Request")
+    @PreAuthorize("hasAnyAuthority('Administration', 'Hospital')")
     public ModelAndView getRegisterForm(@ModelAttribute("registerModel") RegisterBloodRequestModel model, ModelAndView modelAndView) {
         List<String> bloodProductTypeList = this.bloodProductTypeService.getBloodProductTypes();
         modelAndView.addObject("productTypes", bloodProductTypeList);
@@ -37,6 +41,7 @@ public class BloodRequestController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority('Administration', 'Hospital')")
     public ModelAndView register(@Valid @ModelAttribute("registerModel") RegisterBloodRequestModel registerBloodRequestModel, BindingResult bindingResult) {
         ModelAndView mav;
         if (bindingResult.hasErrors()) {
@@ -45,12 +50,14 @@ public class BloodRequestController {
             return mav;
         }
 
-        mav = new ModelAndView("redirect:/requests/table");
+        mav = new ModelAndView("redirect:/home");
         this.bloodRequestService.addBloodRequest(registerBloodRequestModel);
         return mav;
     }
 
     @GetMapping("/table")
+    @PageTitle("Requests")
+    @PreAuthorize("hasAnyAuthority('Administration', 'Storage')")
     public ModelAndView getBloodProductsTable(ModelAndView modelAndView) {
         List<ViewRequestModel> viewRequestModels = this.bloodRequestService.findAllRequests();
         modelAndView.setViewName("blood_requests/table.html");
@@ -59,6 +66,8 @@ public class BloodRequestController {
     }
 
     @GetMapping("/edit/{id}")
+    @PageTitle("Edit Request")
+    @PreAuthorize("hasAnyAuthority('Administration', 'Hospital', 'Storage')")
     public ModelAndView getEditForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         EditRequestModel editRequestModel = this.bloodRequestService.getEditRequestModel(id);
         List<String> bloodProductTypes = this.bloodProductTypeService.getBloodProductTypes();
@@ -71,12 +80,15 @@ public class BloodRequestController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration', 'Hospital', 'Storage')")
     public String edit(@ModelAttribute EditRequestPostModel model, @PathVariable("id") long id){
         this.bloodRequestService.editRequest(model, id);
         return "redirect:/requests/table";
     }
 
     @GetMapping("/delete/{id}")
+    @PageTitle("Delete Request")
+    @PreAuthorize("hasAnyAuthority('Administration', 'Hospital', 'Storage')")
     public ModelAndView getDeleteForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         EditRequestModel editRequestModel = this.bloodRequestService.getEditRequestModel(id);
         modelAndView.addObject("request", editRequestModel);
@@ -85,6 +97,7 @@ public class BloodRequestController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration', 'Hospital', 'Storage')")
     public String delete(@PathVariable("id") long id){
         this.bloodRequestService.deleteRequest(id);
         return "redirect:/requests/table";

@@ -1,7 +1,8 @@
-<th:block th:fragment>
+<th:block th:fragment
+          xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/home">
             <div class="sidebar-brand-icon rotate-n-15">
             </div>
             <div class="sidebar-brand-text mx-3">Blood Centre Management</div>
@@ -9,7 +10,7 @@
 
         <hr class="sidebar-divider my-0">
 
-        <li class="nav-item active">
+        <li sec:authorize="hasAnyAuthority('Administration')" class="nav-item active">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="false" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Users</span>
@@ -22,9 +23,9 @@
             </div>
         </li>
 
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr sec:authorize="hasAnyAuthority('Administration')" class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item active">
+        <li sec:authorize="hasAnyAuthority('Administration')" class="nav-item active">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Departments</span>
@@ -37,9 +38,9 @@
             </div>
         </li>
 
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr sec:authorize="hasAnyAuthority('Administration')" class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item active">
+        <li sec:authorize="hasAnyAuthority('Administration', 'Donations')" class="nav-item active">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="false" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Donors</span>
@@ -52,39 +53,39 @@
             </div>
         </li>
 
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr sec:authorize="hasAnyAuthority('Administration', 'Donations')" class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item active">
+        <li sec:authorize="hasAnyAuthority('Administration', 'Donations', 'Laboratory', 'Processing')" class="nav-item active">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="false" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Donations</span>
             </a>
             <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" th:href="@{/donations/register}">Register</a>
+                    <a  sec:authorize="hasAnyAuthority('Administration', 'Donations')"class="collapse-item" th:href="@{/donations/register}">Register</a>
                     <a class="collapse-item" th:href="@{/donations/table}">Table</a>
                 </div>
             </div>
         </li>
 
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr sec:authorize="hasAnyAuthority('Administration', 'Donations', 'Laboratory', 'Processing')" class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item active">
+        <li sec:authorize="hasAnyAuthority('Administration', 'Processing', 'Storage')" class="nav-item active">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages5" aria-expanded="false" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Blood Products</span>
             </a>
             <div id="collapsePages5" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" th:href="@{/products/register}">Register</a>
+                    <a  sec:authorize="hasAnyAuthority('Administration', 'Processing')"class="collapse-item" th:href="@{/products/register}">Register</a>
                     <a class="collapse-item" th:href="@{/products/table}">Table</a>
                 </div>
             </div>
         </li>
 
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr sec:authorize="hasAnyAuthority('Administration', 'Processing', 'Storage')" class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item active">
+        <li sec:authorize="hasAnyAuthority('Administration')" class="nav-item active">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages6" aria-expanded="false" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Hospitals</span>
@@ -97,22 +98,22 @@
             </div>
         </li>
 
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr sec:authorize="hasAnyAuthority('Administration')" class="sidebar-divider d-none d-md-block">
 
-        <li class="nav-item active">
+        <li sec:authorize="hasAnyAuthority('Administration', 'Storage', 'Hospital')" class="nav-item active">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages7" aria-expanded="false" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Blood Requests</span>
             </a>
             <div id="collapsePages7" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" th:href="@{/requests/register}">Register</a>
-                    <a class="collapse-item" th:href="@{/requests/table}">Table</a>
+                    <a sec:authorize="hasAnyAuthority('Administration', 'Hospital')" class="collapse-item" th:href="@{/requests/register}">Register</a>
+                    <a sec:authorize="hasAnyAuthority('Administration', 'Storage', 'Hospital')" class="collapse-item" th:href="@{/requests/table}">Table</a>
                 </div>
             </div>
         </li>
 
-        <hr class="sidebar-divider d-none d-md-block">
+        <hr sec:authorize="hasAnyAuthority('Administration', 'Storage', 'Hospital')" class="sidebar-divider d-none d-md-block">
 
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>

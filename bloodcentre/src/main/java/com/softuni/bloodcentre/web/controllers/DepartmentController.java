@@ -2,11 +2,13 @@ package com.softuni.bloodcentre.web.controllers;
 
 import com.softuni.bloodcentre.service.models.RegisterDepartmentServiceModel;
 import com.softuni.bloodcentre.service.services.DepartmentService;
+import com.softuni.bloodcentre.web.Anntotations.PageTitle;
 import com.softuni.bloodcentre.web.models.EditDepartmentModel;
 import com.softuni.bloodcentre.web.models.RegisterDepartmentModel;
 import com.softuni.bloodcentre.web.models.ViewDepartmentModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,8 @@ public class DepartmentController {
     }
 
     @GetMapping("/table")
+    @PageTitle("Departments")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getDepartmentsTable(ModelAndView modelAndView) {
         List<ViewDepartmentModel> viewDepartmentModels = this.departmentService.findAllDepartments()
                 .stream().map(d -> this.modelMapper.map(d, ViewDepartmentModel.class))
@@ -41,11 +45,14 @@ public class DepartmentController {
     }
 
     @GetMapping("/register")
+    @PageTitle("Register Department")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String getRegisterForm(@ModelAttribute("registerModel") RegisterDepartmentModel model) {
         return "/departments/register.html";
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String register(@Valid @ModelAttribute("registerModel") RegisterDepartmentModel model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "departments/register.html";
@@ -56,6 +63,8 @@ public class DepartmentController {
     }
 
     @GetMapping("/edit/{id}")
+    @PageTitle("Edit Department")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getEditForm(@ModelAttribute("editModel") EditDepartmentModel model, ModelAndView modelAndView, @PathVariable("id") long id) {
         EditDepartmentModel editDepartmentModel = this.departmentService.getEditDepartmentModel(id);
         modelAndView.addObject("department", editDepartmentModel);
@@ -65,6 +74,7 @@ public class DepartmentController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView edit(@Valid @ModelAttribute("editModel") EditDepartmentModel model, BindingResult bindingResult, @PathVariable("id") long id){
         ModelAndView mav;
         if(bindingResult.hasErrors()) {
@@ -80,6 +90,8 @@ public class DepartmentController {
     }
 
     @GetMapping("/delete/{id}")
+    @PageTitle("Delete Department")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getDeleteForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         EditDepartmentModel editDepartmentModel = this.departmentService.getEditDepartmentModel(id);
         modelAndView.addObject("department", editDepartmentModel);
@@ -88,6 +100,7 @@ public class DepartmentController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String delete(@PathVariable("id") long id){
         this.departmentService.deleteDepartment(id);
         return "redirect:/departments/table";

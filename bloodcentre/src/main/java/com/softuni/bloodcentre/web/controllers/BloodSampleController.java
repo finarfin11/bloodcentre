@@ -5,12 +5,14 @@ import com.softuni.bloodcentre.data.models.BloodType;
 import com.softuni.bloodcentre.service.services.BloodSampleService;
 import com.softuni.bloodcentre.service.services.BloodSampleStatusService;
 import com.softuni.bloodcentre.service.services.BloodTypeService;
+import com.softuni.bloodcentre.web.Anntotations.PageTitle;
 import com.softuni.bloodcentre.web.models.DeleteBloodSampleModel;
 import com.softuni.bloodcentre.web.models.EditBloodSampleModel;
 import com.softuni.bloodcentre.web.models.RegisterBloodSampleModel;
 import com.softuni.bloodcentre.web.models.ViewBloodSampleModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +42,8 @@ public class BloodSampleController {
     }
 
     @GetMapping("/table/{id}")
+    @PageTitle("Blood Samples")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Administration', 'Laboratory', 'Processing')")
     public ModelAndView getBloodSamplesTable(@PathVariable("id") long id, ModelAndView modelAndView) {
         List<ViewBloodSampleModel> bloodSampleModels = this.bloodSampleService.findAllSamples(id);
         modelAndView.addObject("bloodSampleModels", bloodSampleModels);
@@ -49,6 +53,8 @@ public class BloodSampleController {
     }
 
     @GetMapping("/register/{id}")
+    @PageTitle("Register Blood Sample")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Laboratory')")
     public ModelAndView getRegisterForm(@ModelAttribute("registerModel") RegisterBloodSampleModel registerBloodSampleModel, ModelAndView modelAndView, @PathVariable("id") long id) {
         modelAndView.addObject("id", id);
         List<BloodType> bloodTypes = this.bloodTypeService.getBloodTypes();
@@ -60,6 +66,7 @@ public class BloodSampleController {
     }
 
     @PostMapping("/register/{id}")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Laboratory')")
     public ModelAndView register(@Valid @ModelAttribute("registerModel") RegisterBloodSampleModel registerBloodSampleModel, BindingResult bindingResult, @PathVariable("id") long id) {
         ModelAndView mav;
         if(bindingResult.hasErrors()) {
@@ -76,6 +83,8 @@ public class BloodSampleController {
     }
 
     @GetMapping("/edit/{id}")
+    @PageTitle("Edit Blood Sample")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Laboratory')")
     public ModelAndView getEditForm(@ModelAttribute("editModel") EditBloodSampleModel model, ModelAndView modelAndView, @PathVariable("id") long id) {
         EditBloodSampleModel editBloodSampleModel = this.modelMapper
                 .map(this.bloodSampleService.findById(id), EditBloodSampleModel.class);
@@ -89,6 +98,7 @@ public class BloodSampleController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Laboratory')")
     public ModelAndView edit(@Valid @ModelAttribute("editModel") EditBloodSampleModel model, BindingResult bindingResult, @PathVariable("id") long id) {
         ModelAndView mav;
         if (bindingResult.hasErrors()) {
@@ -105,6 +115,8 @@ public class BloodSampleController {
     }
 
     @GetMapping("/delete/{id}")
+    @PageTitle("Delete Blood Sample")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Laboratory')")
     public ModelAndView getDeleteForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         DeleteBloodSampleModel deleteBloodSampleModel = this.modelMapper
                 .map(this.bloodSampleService.findById(id), DeleteBloodSampleModel.class);
@@ -114,6 +126,7 @@ public class BloodSampleController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('Donations', 'Laboratory')")
     public String delete(@PathVariable("id") long id) {
         this.bloodSampleService.deleteBloodSample(id);
         return "redirect:/donations/table";

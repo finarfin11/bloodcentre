@@ -2,6 +2,7 @@ package com.softuni.bloodcentre.web.controllers;
 
 import com.softuni.bloodcentre.service.services.DepartmentService;
 import com.softuni.bloodcentre.service.services.UserService;
+import com.softuni.bloodcentre.web.Anntotations.PageTitle;
 import com.softuni.bloodcentre.web.models.DeleteUserModel;
 import com.softuni.bloodcentre.web.models.EditUserModel;
 import com.softuni.bloodcentre.web.models.RegisterUserModel;
@@ -9,6 +10,7 @@ import com.softuni.bloodcentre.web.models.ViewUserModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,8 @@ public class UsersController {
     }
 
     @GetMapping("/table")
+    @PageTitle("Users")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getUsersTable(ModelAndView modelAndView) {
         List<ViewUserModel> viewUserModels = this.userService.findAllUsers().stream()
                 .map(userServiceModel -> this.modelMapper.map(userServiceModel, ViewUserModel.class)).collect(Collectors.toList());
@@ -44,6 +48,8 @@ public class UsersController {
     }
 
     @GetMapping("/register")
+    @PageTitle("Register User")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getRegisterForm(@ModelAttribute("registerModel") RegisterUserModel registerUserModel, ModelAndView modelAndView) {
         List<String> departments = getDepartmentNames();
         modelAndView.addObject("departmentNames", departments);
@@ -52,6 +58,7 @@ public class UsersController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView register(@Valid @ModelAttribute("registerModel") RegisterUserModel model, BindingResult bindingResult) {
         ModelAndView mav;
         if(bindingResult.hasErrors()) {
@@ -67,6 +74,8 @@ public class UsersController {
     }
 
     @GetMapping("/edit/{id}")
+    @PageTitle("Edit User")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getEditForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         EditUserModel editUserModel = this.modelMapper
                 .map(this.userService.findById(id), EditUserModel.class);
@@ -78,12 +87,15 @@ public class UsersController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String edit(@ModelAttribute EditUserModel model, @PathVariable("id") long id) {
         this.userService.editUser(model, id);
         return "redirect:/users/table";
     }
 
     @GetMapping("/delete/{id}")
+    @PageTitle("Delete User")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public ModelAndView getDeleteForm(ModelAndView modelAndView, @PathVariable("id") long id) {
         DeleteUserModel deleteUserModel = this.modelMapper
                 .map(this.userService.findById(id),DeleteUserModel.class);
@@ -95,6 +107,7 @@ public class UsersController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('Administration')")
     public String delete(@PathVariable("id") long id) {
         this.userService.deleteUser(id);
         return "redirect:/users/table";
