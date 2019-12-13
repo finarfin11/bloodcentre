@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body id="page-top">
 
@@ -72,7 +74,9 @@
             </div>
         </div>
 
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
 
     </div>
 </div>
@@ -80,7 +84,7 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

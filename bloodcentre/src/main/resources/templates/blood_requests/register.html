@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body class="bg-gradient-primary">
 <div id="wrapper">
@@ -24,11 +26,13 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Register Blood Request</h1>
                                     </div>
-                                    <form class="user" th:action="@{/requests/register}" method="post" th:object="${registerModel}">
+                                    <form class="user" th:action="@{/requests/register}" method="post"
+                                          th:object="${registerModel}">
                                         <div class="form-group row">
                                             <input type="text" class="form-control form-control-user" id="name"
                                                    th:classappend="${#fields.hasErrors('hospitalName')} ? 'is-invalid'"
-                                                   placeholder="Hospital Name" name="hospitalName" th:field="*{hospitalName}">
+                                                   placeholder="Hospital Name" name="hospitalName"
+                                                   th:field="*{hospitalName}">
                                             <small th:each="error : ${#fields.errors('hospitalName')}"
                                                    th:text="${error}">Error Message
                                             </small>
@@ -37,7 +41,8 @@
                                             <input type="text" class="form-control form-control-user"
                                                    th:classappend="${#fields.hasErrors('patientFullName')} ? 'is-invalid'"
                                                    id="patientFullName"
-                                                   placeholder="Patient Full Name" name="patientFullName" th:field="*{patientFullName}">
+                                                   placeholder="Patient Full Name" name="patientFullName"
+                                                   th:field="*{patientFullName}">
                                             <small th:each="error : ${#fields.errors('patientFullName')}"
                                                    th:text="${error}">Error Message
                                             </small>
@@ -68,7 +73,8 @@
                                                 <input type="text" class="form-control form-control-user"
                                                        th:classappend="${#fields.hasErrors('dateOfRequest')} ? 'is-invalid'"
                                                        id="dаteOfRequest"
-                                                       placeholder="Date in format yyyy-MM-dd" name="dateOfRequest" th:field="*{dateOfRequest}">
+                                                       placeholder="Date in format yyyy-MM-dd" name="dateOfRequest"
+                                                       th:field="*{dateOfRequest}">
                                                 <small th:each="error : ${#fields.errors('dateOfRequest')}"
                                                        th:text="${error}">Error Message
                                                 </small>
@@ -94,10 +100,12 @@
                 </div>
             </div>
         </div>
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
     </div>
 </div>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

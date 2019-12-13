@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body class="bg-gradient-primary">
 <div id="wrapper">
@@ -28,7 +30,8 @@
                                         <div class="form-group" style="text-align: center">
                                             <label for="name" class="text-info">Department Name</label>
                                             <input type="text" id="name" class="form-control form-control-user"
-                                                   placeholder="Department name" name="name" th:value="${department.name}" th:disabled="true"/>
+                                                   placeholder="Department name" name="name"
+                                                   th:value="${department.name}" th:disabled="true"/>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Delete Department
@@ -41,10 +44,12 @@
                 </div>
             </div>
         </div>
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
     </div>
 </div>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

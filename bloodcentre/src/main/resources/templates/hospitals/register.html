@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body class="bg-gradient-primary">
 <div id="wrapper">
@@ -24,11 +26,12 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Register Hospital</h1>
                                     </div>
-                                    <form class="user" th:action="@{/hospitals/register}" method="post" th:object="${registerModel}">
+                                    <form class="user" th:action="@{/hospitals/register}" method="post"
+                                          th:object="${registerModel}">
                                         <div class="form-group row">
                                             <input type="text" class="form-control form-control-user" id="name"
                                                    th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
-                                                   placeholder="Hospital Name" name="name" th:field="*{name}" />
+                                                   placeholder="Hospital Name" name="name" th:field="*{name}"/>
                                             <small th:each="error : ${#fields.errors('name')}"
                                                    th:text="${error}">Error Message
                                             </small>
@@ -44,7 +47,8 @@
                                         <div class="form-group row">
                                             <input type="text" class="form-control form-control-user" id="phoneNumber"
                                                    th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid'"
-                                                   placeholder="Phone Number" name="phoneNumber" th:field="*{phoneNumber}"/>
+                                                   placeholder="Phone Number" name="phoneNumber"
+                                                   th:field="*{phoneNumber}"/>
                                             <small th:each="error : ${#fields.errors('phoneNumber')}"
                                                    th:text="${error}">Error Message
                                             </small>
@@ -60,10 +64,12 @@
                 </div>
             </div>
         </div>
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
     </div>
 </div>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

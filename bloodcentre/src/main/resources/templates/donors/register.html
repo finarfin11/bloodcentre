@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body class="bg-gradient-primary">
 <div id="wrapper">
@@ -123,10 +125,12 @@
                 </div>
             </div>
         </div>
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
     </div>
 </div>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body id="page-top">
 
@@ -51,7 +53,8 @@
                                         <td th:text="${bloodSample.bloodSampleStatus}"></td>
                                         <td th:text="${bloodSample.notes}"></td>
                                         <td><a th:href="@{/bloodSamples/edit/{id}(id=${bloodSample.id})}">Edit</a></td>
-                                        <td><a th:href="@{/bloodSamples/delete/{id}(id=${bloodSample.id})}">Delete</a></td>
+                                        <td><a th:href="@{/bloodSamples/delete/{id}(id=${bloodSample.id})}">Delete</a>
+                                        </td>
                                     </tr>
                                 </th:block>
                                 </tbody>
@@ -62,7 +65,9 @@
             </div>
         </div>
 
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
 
     </div>
 </div>
@@ -70,7 +75,7 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

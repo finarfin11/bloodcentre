@@ -3,97 +3,99 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
-
-
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body id="page-top">
 
 <div id="wrapper">
 
-  <th:block th:include="~{_shared/sidebar}"/>
+    <th:block th:include="~{_shared/sidebar}"/>
 
-  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column">
 
-    <div id="content">
+        <div id="content">
 
-      <th:block th:include="~{_shared/navbar}"/>
+            <th:block th:include="~{_shared/navbar}"/>
 
-      <div class="container-fluid">
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Registered Donors</h6>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                  <th scope="col">Full Name</th>
-                  <th scope="col">Age</th>
-                  <th scope="col">Sex</th>
-                  <th scope="col">UCN</th>
-                  <th scope="col">Id Card</th>
-                  <th scope="col">CurrentAddress</th>
-                  <th scope="col">Phone Number</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Gp</th>
-                  <th scope="col">Notes</th>
-                  <th scope="col">Edit Donor</th>
-                  <th scope="col">Delete Donor</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                  <th scope="col">Full Name</th>
-                  <th scope="col">Age</th>
-                  <th scope="col">Sex</th>
-                  <th scope="col">UCN</th>
-                  <th scope="col">Id Card</th>
-                  <th scope="col">CurrentAddress</th>
-                  <th scope="col">Phone Number</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Gp</th>
-                  <th scope="col">Notes</th>
-                  <th scope="col">Edit Donor</th>
-                  <th scope="col">Delete Donor</th>
-                </tr>
-                </tfoot>
-                <tbody>
-                <th:block th:each="donor : ${donors}">
-                  <tr>
-                    <td th:text="${donor.fullName}"></td>
-                    <td th:text="${donor.age}"></td>
-                    <td th:text="${donor.sex}"></td>
-                    <td th:text="${donor.ucn}"></td>
-                    <td th:text="${donor.idCardNumber}"></td>
-                    <td th:text="${donor.currentAddress}"></td>
-                    <td th:text="${donor.phoneNumber}"></td>
-                    <td th:text="${donor.email}"></td>
-                    <td th:text="${donor.gpName}"></td>
-                    <td th:text="${donor.notes}"></td>
-                    <td><a th:href="@{/donors/edit/{id}(id=${donor.id})}">Edit</a></td>
-                    <td><a th:href="@{/donors/delete/{id}(id=${donor.id})}">Delete</a></td>
-                  </tr>
-                </th:block>
-                </tbody>
-              </table>
+            <div class="container-fluid">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Registered Donors</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Sex</th>
+                                    <th scope="col">UCN</th>
+                                    <th scope="col">Id Card</th>
+                                    <th scope="col">CurrentAddress</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Gp</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Edit Donor</th>
+                                    <th scope="col">Delete Donor</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Sex</th>
+                                    <th scope="col">UCN</th>
+                                    <th scope="col">Id Card</th>
+                                    <th scope="col">CurrentAddress</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Gp</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col">Edit Donor</th>
+                                    <th scope="col">Delete Donor</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <th:block th:each="donor : ${donors}">
+                                    <tr>
+                                        <td th:text="${donor.fullName}"></td>
+                                        <td th:text="${donor.age}"></td>
+                                        <td th:text="${donor.sex}"></td>
+                                        <td th:text="${donor.ucn}"></td>
+                                        <td th:text="${donor.idCardNumber}"></td>
+                                        <td th:text="${donor.currentAddress}"></td>
+                                        <td th:text="${donor.phoneNumber}"></td>
+                                        <td th:text="${donor.email}"></td>
+                                        <td th:text="${donor.gpName}"></td>
+                                        <td th:text="${donor.notes}"></td>
+                                        <td><a th:href="@{/donors/edit/{id}(id=${donor.id})}">Edit</a></td>
+                                        <td><a th:href="@{/donors/delete/{id}(id=${donor.id})}">Delete</a></td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
+
     </div>
-
-      <th:block th:include="~{_shared/footer}"/>
-
-  </div>
 
 </div>
 
 <a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
+    <i class="fas fa-angle-up"></i>
 </a>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

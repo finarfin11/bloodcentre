@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body class="bg-gradient-primary">
 <div id="wrapper">
@@ -30,7 +32,8 @@
                                             <label for="name" class="text-info">Department Name</label>
                                             <input type="text" id="name" class="form-control form-control-user"
                                                    th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
-                                                   placeholder="Department name" name="name" th:value="${department.name}"/>
+                                                   placeholder="Department name" name="name"
+                                                   th:value="${department.name}"/>
                                             <small id="nameHelp" th:each="error : ${#fields.errors('name')}"
                                                    th:text="${error}">Error Message
                                             </small>
@@ -46,10 +49,12 @@
                 </div>
             </div>
         </div>
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
     </div>
 </div>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

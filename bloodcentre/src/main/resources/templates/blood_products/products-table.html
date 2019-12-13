@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body id="page-top">
 
@@ -32,8 +35,12 @@
                                     <th scope="col">Amount Of Product</th>
                                     <th scope="col">Date Of Donation</th>
                                     <th scope="col">Product Availability</th>
-                                    <th scope="col">Edit Product Record</th>
-                                    <th scope="col">Delete Product Record</th>
+                                    <th sec:authorize="hasAnyAuthority('Administration', 'Processing')" scope="col">Edit
+                                        Product Record
+                                    </th>
+                                    <th sec:authorize="hasAnyAuthority('Administration', 'Processing')" scope="col">
+                                        Delete Product Record
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -42,8 +49,12 @@
                                     <th scope="col">Amount Of Product</th>
                                     <th scope="col">Date Of Donation</th>
                                     <th scope="col">Product Availability</th>
-                                    <th scope="col">Edit Product Record</th>
-                                    <th scope="col">Delete Product Record</th>
+                                    <th sec:authorize="hasAnyAuthority('Administration', 'Processing')" scope="col">Edit
+                                        Product Record
+                                    </th>
+                                    <th sec:authorize="hasAnyAuthority('Administration', 'Processing')" scope="col">
+                                        Delete Product Record
+                                    </th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -53,8 +64,11 @@
                                         <td th:text="${product.amount}"></td>
                                         <td th:text="${#dates.format(product.dateOfDonation, 'yyyy-MM-dd')}"></td>
                                         <td th:text="${product.productAvailability.displayValue}"></td>
-                                        <td><a th:href="@{/products/edit/{id}(id=${product.id})}">Edit Product</a></td>
-                                        <td><a th:href="@{/products/delete/{id}(id=${product.id})}">Delete Product</a></td>
+                                        <td sec:authorize="hasAnyAuthority('Administration', 'Processing')"><a
+                                                th:href="@{/products/edit/{id}(id=${product.id})}">Edit Product</a></td>
+                                        <td sec:authorize="hasAnyAuthority('Administration', 'Processing')"><a
+                                                th:href="@{/products/delete/{id}(id=${product.id})}">Delete Product</a>
+                                        </td>
                                     </tr>
                                 </th:block>
                                 </tbody>
@@ -65,7 +79,9 @@
             </div>
         </div>
 
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
 
     </div>
 </div>
@@ -73,7 +89,7 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>

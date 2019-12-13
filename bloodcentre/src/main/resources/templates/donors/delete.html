@@ -3,7 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:include="~{_shared/head}"/>
+<head>
+    <th:block th:include="~{_shared/head}"/>
+</head>
 
 <body class="bg-gradient-primary">
 <div id="wrapper">
@@ -76,7 +78,7 @@
                                                 <input type="email" class="form-control form-control-user text-muted"
                                                        id="email" placeholder="Email"
                                                        name="email" th:value="${donor.email}"
-                                                       th:disabled="true" />
+                                                       th:disabled="true"/>
                                             </div>
                                         </div>
                                         <div class="form-group text-info" style="text-align: center">
@@ -111,10 +113,12 @@
                 </div>
             </div>
         </div>
-        <th:block th:include="~{_shared/footer}"/>
+        <footer>
+            <th:block th:include="~{_shared/footer}"/>
+        </footer>
     </div>
 </div>
-
+<th:block th:include="~{_shared/dom_scripts}"/>
 </body>
 
 </html>
