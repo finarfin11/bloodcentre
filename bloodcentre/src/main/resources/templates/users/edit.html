@@ -27,22 +27,22 @@
                                         <h1 class="h4 text-gray-900 mb-4">Edit User Account</h1>
                                     </div>
                                     <form class="user" th:action="@{/users/edit/{id}(id=${user.id})}" method="post">
-                                        <div class="form-group">
-                                            <label for="username">Username</label>
+                                        <div class="form-group" style="text-align: center">
+                                            <label for="username" class="text-info">Username</label>
                                             <input type="text" class="form-control form-control-user"
                                                    id="username"
                                                    placeholder="Username" name="username" th:value="${user.username}">
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label for="firstName">First Name</label>
+                                            <div class="col-sm-6 mb-3 mb-sm-0" style="text-align: center">
+                                                <label for="firstName" class="text-info">First Name</label>
                                                 <input type="text" class="form-control form-control-user"
                                                        id="firstName"
                                                        placeholder="First Name" name="firstName"
                                                        th:value="${user.firstName}">
                                             </div>
-                                            <div class="col-sm-6">
-                                                <label for="lastName">Last Name</label>
+                                            <div class="col-sm-6" style="text-align: center">
+                                                <label for="lastName" class="text-info">Last Name</label>
                                                 <input type="text" class="form-control form-control-user"
                                                        id="lastName"
                                                        placeholder="Last Name" name="lastName"
@@ -50,25 +50,27 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label for="position">Position</label>
+                                            <div class="col-sm-6" style="text-align: center">
+                                                <label for="position" class="text-info">Position</label>
                                                 <input type="text" class="form-control form-control-user"
                                                        placeholder="Position" id="position"
                                                        name="position" th:value="${user.position}">
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label for="phone">Phone Number</label>
+                                            <div class="col-sm-6 mb-3 mb-sm-0" style="text-align: center">
+                                                <label for="phone" class="text-info">Phone Number</label>
                                                 <input type="text" class="form-control form-control-user"
                                                        placeholder="Phone Number" id="phone"
                                                        name="phoneNumber" th:value="${user.phoneNumber}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-6 mb-3 mb-sm-0" style="text-align: center">
+                                                <label for="exampleInputPassword" class="text-info">Password</label>
                                                 <input type="password" class="form-control form-control-user"
                                                        id="exampleInputPassword" placeholder="Password" name="password">
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6" style="text-align: center">
+                                                <label for="exampleRepeatPassword" class="text-info">Repeat Password</label>
                                                 <input type="password" class="form-control form-control-user"
                                                        id="exampleRepeatPassword" placeholder="Repeat Password"
                                                        name="confirmPassword">
@@ -76,7 +78,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label class="memberNameLabel">Select Department</label>
+                                                <label class="memberNameLabel text-info">Select Department</label>
                                             </div>
                                             <div class="col-sm-6">
                                                 <select class="custom-select" name="departmentName">
